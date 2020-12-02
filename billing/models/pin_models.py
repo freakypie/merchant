@@ -19,7 +19,7 @@ class PinCard(models.Model):
     address_state = models.CharField(max_length=255)
     address_country = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, related_name='pin_cards', blank=True, null=True)
+    user = models.ForeignKey(User, related_name='pin_cards', blank=True, null=True, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return 'Card %s' % self.display_number
