@@ -187,10 +187,11 @@ class AuthorizeNetGateway(Gateway):
         gateway RESPONSE_CODE, RESPONSE_REASON_CODE, RESPONSE_REASON_TEXT"""
         if not headers:
             headers = {}
-        conn = Request(url=url, data=data, headers=headers)
+
+        conn = Request(url=url, data=data.encode(), headers=headers)
         try:
             open_conn = urlopen(conn)
-            response = open_conn.read()
+            response = open_conn.read().decode()
         except URLError as e:
             return MockAuthorizeAIMResponse(5, '1', str(e))
         fields = response[1:-1].split('%s%s%s' % (ENCAP_CHAR, DELIM_CHAR, ENCAP_CHAR))
